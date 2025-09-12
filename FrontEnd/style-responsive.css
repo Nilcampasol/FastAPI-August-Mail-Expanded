@@ -1,0 +1,254 @@
+/* STARTING PHONE SIZE */
+
+@media(max-width: 768px) {
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: -260px;
+        width: 260px;
+        background: white;
+        z-index: 999;
+        box-shadow: 2px 0 8px rgba(0, 0, 0, 0.08);
+        transition: left 0.3s cubic-bezier(.4, 0, .2, 1);
+        display: block;
+
+        .upload-btn {
+            width: 240px;
+            margin-bottom: 24px;
+        }
+
+        .close-sidebar {
+            left: -40px;
+            transition: left 0.3s cubic-bezier(.4, 0, .2, 1);
+            display: block;
+        }
+    }
+
+    .sidebar-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.4);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s;
+        z-index: 998;
+    }
+
+    .show-sidebar {
+        .sidebar-overlay {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .sidebar {
+            left: 0;
+            display: block;
+
+            .bi-x-lg {
+                display: flex;
+            }
+        }
+
+        .close-sidebar {
+            left: 280px;
+        }
+    }
+
+    .rail {
+        display: none;
+    }
+
+    .notes-header {
+        display: none;
+    }
+
+    .two-thirds {
+        display: none;
+        overflow: scroll;
+        padding-bottom: 16px;
+        margin-right: 0px;
+    }
+
+    .actions {
+        margin-right: 0px !important;
+    }
+
+    .page {
+        display: none;
+    }
+
+    .header {
+        margin-top: 10px;
+
+        .name,
+        .dropdown-btn {
+            display: none;
+        }
+
+        .search {
+            padding: 0px;
+        }
+    }
+
+    .toolbar-main {
+        padding: 4px;
+        align-items: center;
+
+        .group-btn {
+            display: flex;
+        }
+
+        .toolbar-btn[title="Favorite"],
+        .toolbar-btn[title="Move"],
+        .toolbar-btn[title="Copy"],
+        .toolbar-btn[title="Copy Plus"],
+        .toolbar-btn[title="Export"],
+        .toolbar-btn[title="Print"],
+        .toolbar-btn[title="Delete"],
+        .toolbar-sep {
+            display: none;
+        }
+
+        .toolbar-btn {
+            font-size: 16px;
+            gap: 12px;
+        }
+
+        .people-btn {
+            padding: 0px;
+        }
+    }
+
+    .topbar-main {
+        gap: 10px !important;
+
+        .search .bi-search {
+            display: none;
+        }
+
+        input {
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid var(--line);
+        }
+
+
+    }
+
+    .toolbar-edit {
+        display: none;
+    }
+
+    .editor-container {
+        padding: 18px !important;
+        margin-bottom: 70px !important;
+
+    }
+    .add-notes-btn {
+        margin-bottom: 90px !important;
+    }
+
+}
+
+/* ENDING PHONE SIZE */
+
+@media(min-width: 769px) {
+    .group-btn {
+        display: none;
+    }
+
+    #open-sidebar-btn {
+        display: none;
+    }
+
+    .add-notes-btn {
+        display: none;
+    }
+
+    .notes-list {
+        padding-bottom: 40px;
+    }
+
+    #close-two-thirds-btn {
+        display: none;
+    }
+
+    .close-sidebar {
+        display: none;
+    }
+}
+
+/* STARTING TABLET SIZE */
+
+@media(max-width:1024px) {
+    .two-thirds {
+        display: none;
+    }
+
+    .header {
+        width: 100%;
+    }
+
+    .one-third {
+        max-width: none;
+        min-width: none;
+    }
+
+    .two-thirds {
+        position: fixed;
+        top: 70px;
+        right: -100vw;
+        width: 100vw;
+        height: calc(100vh-70px);
+        background: white;
+        z-index: 1000;
+        box-shadow: -2px 0 8px rgba(0, 0, 0, 0.08);
+        transition: right 0.3s cubic-bezier(.4, 0, .2, 1), opacity 0.3s;
+        opacity: 0;
+        display: block;
+        overflow: auto;
+    }
+
+    .show-two-thirds .two-thirds {
+        right: 0 !important;
+        opacity: 1 !important;
+        display: block !important;
+    }
+
+    .show-two-thirds {
+
+        .topbar-main {
+            padding-left: 2px;
+        }
+
+        #close-two-thirds-btn {
+            padding-right: 12px;
+        }
+
+        .rail,
+        .sidebar,
+        .one-third,
+        .notes-header,
+        .page,
+        #open-sidebar-btn,
+        #close-two-thirds-btn {
+            display: none !important;
+        }
+
+        .two-thirds,
+        #close-two-thirds-btn {
+            display: block !important;
+        }
+    }
+
+    #close-two-thirds-btn {
+        display: inline-block;
+    }
+}
+
+/* ENDING TABLET SIZE*/
+
+/* STARTING PC SIZE */

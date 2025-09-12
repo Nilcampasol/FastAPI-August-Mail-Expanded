@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Practica Agost Kriter Software</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="style-responsive.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- LEFT MENU BUTTONS -->
+    <div class="div rail">
+        <button class="rail-logo" title="Settings">
+            <i class="bi bi-subtract" style="transform: rotate(90deg);"></i>
+        </button>
+        <button class="rail-btn" title="Notes" aria-current="page">
+            <i class="bi bi-columns-gap"></i>
+        </button>
+        <button class="rail-btn" title="Pinned">
+            <i class="bi bi-folder"></i>
+        </button>
+        <button class="rail-btn" title="Tasks">
+            <i class="bi bi-envelope"></i>
+        </button>
+        <button class="rail-btn " title="Archive">
+            <i class="bi bi-person-circle"></i>
+        </button>
+        <button class="rail-btn active" title="Settings">
+            <i class="bi bi-file-earmark-text"></i>
+        </button>
+        <button class="rail-btn" title="Notes" aria-current="page">
+            <i class="bi bi-layout-sidebar-inset-reverse"></i>
+        </button>
+        <button class="rail-btn" title="Pinned">
+            <i class="bi bi-calendar-event"></i>
+        </button>
+        <button class="rail-btn" title="Tasks">
+            <i class="bi bi-chat-square"></i>
+    </div>
+
+    <!-- HEADER -->
+    <div class="div header">
+        <header class="topbar">
+            <div class="topbar-main">
+                <div class="page">
+                    <span class="chevron-double-custom">
+                        <i class="bi bi-chevron-left"></i>
+                        <i class="bi bi-chevron-left"></i>
+                    </span>
+                    <span class="app-title">Note</span>
+                </div>
+
+                <button id="close-two-thirds-btn" class="toolbar-btn close-btn d-none" title="Cerrar">
+                    <i class="bi bi-chevron-left"></i>
+                    <i class="bi bi-chevron-left"></i>
+                </button>
+
+                <button id="open-sidebar-btn" class="toolbar-btn d-none">
+                    <i class="bi bi-list"></i>
+                </button>
+
+                <div class="search">
+                    <i class="bi bi-search"></i>
+                    <input type="search" placeholder="Search for anything…" />
+                    <button class="topbar-btn">
+                        <i class="bi bi-journal-check"></i>
+                    </button>
+                    <button class="topbar-btn">
+                        <i class="bi bi-bell"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="actions">
+                <div class="avatar avatar--with-badge">
+                    EH
+                    <button class="avatar-badge" type="button" aria-label="status"></button>
+                </div>
+                <div class="div name">
+                    <a>Esther Howard</a>
+                    <a class="mail">estherH@gmail.com<a>
+                </div>
+                <button class="dropdown-btn">
+                    <i class="bi bi-caret-down-fill"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- 2nd LEFT SIDEBAR -->
+        <div class="main-wrapper">
+            <div class="sidebar-overlay"></div>
+            <aside class="sidebar">
+                <button class="close-sidebar d-none" title="Close Sidebar">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+                <button class="upload-btn">
+                    <i class="bi bi-upload"></i>
+                    Upload
+                </button>
+                <div class="sidebar-section">
+                    <div class="sidebar-title">QUICK LINKS</div>
+                    <ul class="sidebar-list">
+                        <li>
+                            <span class="dropdown-arrow" style="visibility:hidden">
+                                <i class="bi bi-caret-down-fill"></i>
+                            </span>
+                            <button class="sidebar-icon-btn" tabindex="-1">
+                                <i class="bi bi-journal-text"></i>
+                            </button>
+                            All Notes
+                        </li>
+                        <li>
+                            <span class="dropdown-arrow" style="visibility:hidden">&#9660;</span>
+                            <button class="sidebar-icon-btn" tabindex="-1">
+                                <i class="bi bi-pin-angle-fill"></i>
+                            </button>
+                            Pinned
+                        </li>
+                        <li>
+                            <span class="dropdown-arrow" style="visibility:hidden">&#9660;</span>
+                            <button class="sidebar-icon-btn" tabindex="-1">
+                                <i class="bi bi-check2-square"></i>
+                            </button>
+                            Task
+                        </li>
+                    </ul>
+                </div>
+                <div class="div straight-line"></div>
+                <div class="sidebar-section">
+                    <div class="sidebar-title">NOTES</div>
+                    <ul class="sidebar-list">
+                        <li>
+                            <span class="dropdown-arrow" style="visibility:hidden">&#9660;</span>
+                            <button class="sidebar-icon-btn" tabindex="-1">
+                                <i class="bi bi-sticky"></i>
+                            </button>
+                            Sticky Notes
+                        </li>
+                        <li class="active">
+                            <span class="dropdown-arrow" style="visibility:hidden">&#9660;</span>
+                            <button class="sidebar-icon-btn" tabindex="-1">
+                                <i class="bi bi-journal-text"></i>
+                            </button>
+                            Notes
+                        </li>
+                        <li>
+                            <span class="dropdown-arrow" style="visibility:hidden">&#9660;</span>
+                            <button class="sidebar-icon-btn" tabindex="-1">
+                                <i class="bi bi-star"></i>
+                            </button>
+                            Starred
+                        </li>
+                        <li>
+                            <span class="dropdown-arrow" style="visibility:hidden">&#9660;</span>
+                            <button class="sidebar-icon-btn" tabindex="-1">
+                                <i class="bi bi-sticky"></i>
+                            </button>
+                            Shared with Me
+                        </li>
+                        <li>
+                            <span class="dropdown-arrow" style="visibility:hidden">
+                                <i class="bi bi-caret-down-fill"></i>
+                            </span>
+                            <button class="sidebar-icon-btn" tabindex="-1">
+                                <i class="bi bi-file-earmark-arrow-down"></i>
+                            </button>
+                            Archive
+                        </li>
+                        <li>
+                            <span class="dropdown-arrow">
+                                <i class="bi bi-caret-down-fill"></i>
+                            </span>
+                            <button class="sidebar-icon-btn" tabindex="-1">
+                                <i class="bi bi-journal-bookmark"></i>
+                            </button>
+                            Notebooks
+                        </li>
+                    </ul>
+                    <div class="sidebar-separator"></div>
+                    <ul class="sidebar-list">
+                        <li>
+                            <span class="dropdown-arrow">
+                                <i class="bi bi-caret-down-fill"></i>
+                            </span>
+                            <button class="sidebar-icon-btn" tabindex="-1">
+                                <i class="bi bi-tag" style="transform:rotate(135deg)"></i>
+                            </button>
+                            Label
+                        </li>
+                    </ul>
+                </div>
+
+            </aside>
+            <section class="main-content2">
+                <div class="one-third test-bg1">
+                    <!-- Container 1: Header -->
+                    <div class="notes-header">
+                        <h2>Notes</h2>
+                        <div class="notes-header-divider"></div>
+                        <button id="create-btn" class="create-btn">+ Create New</button>
+                    </div>
+
+                    <!-- Container 2: Filters -->
+                    <div class="notes-filters">
+                        <span><strong>24</strong> Notes</span>
+                        <div class="notes-filters-right">
+                            <span>Date created:</span>
+                            <select class="filter-select">
+                                <option>Newest first</option>
+                                <option>Oldest first</option>
+                                <option>By priority</option>
+                                <option>By label</option>
+                            </select>
+                            <i class="bi bi-funnel upload-icon"></i>
+                        </div>
+                    </div>
+
+                    <!-- Container 3: Tabs -->
+                    <div class="notes-tabs">
+                        <button class="tab-btn active">All</button>
+                        <button class="tab-btn">Reminder</button>
+                    </div>
+
+                    <!-- Container 4: Notes List -->
+                    <div class="notes-list">
+
+                        <!-- NOTE 1 -->
+                        <div class="note-item" data-id="1">
+                            <div class="note-content">
+                                <div class="note-title" title="Note 1">
+                                    Brainstorming Session Hihglight on all the things i have no idea what i'm writing,
+                                    this is a long title that might get truncated</div>
+                                <div class="note-subtitle" title="Subtitle 1">
+                                    Capture your team's best ideas here, well if you want to do it.</div>
+                                <div class="note-meta">
+                                    <span class="meta-tasks">
+                                        <i class="bi bi-list-check meta-icon"></i> 0/3
+                                    </span>
+                                    <span class="meta-link">
+                                        <i class="bi bi-link-45deg meta-icon"></i>
+                                        3
+                                    </span>
+                                    <span class="meta-label label-personal"><i
+                                            class="bi bi-tag-fill"></i>Personal</span>
+                                    <span class="meta-label label-more"></i>+2</span>
+                                </div>
+                                <div class="note-footer">
+                                    <span class="note-time">03:20 PM</span>
+                                    <div class="-footer-divider"></div>
+                                    <span class="note-notebook">
+                                        <i class="bi bi-journal"></i>
+                                        NoteBook-01
+                                    </span>
+                                    <span class="note-timer">
+                                        <i class="bi bi-alarm"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <img class="note-image"
+                                src="/FrontEnd/img/Coffe-Shop.png"
+                                alt="Nota" />
+                        </div>
+
+                        <!-- NOTE 2 -->
+                        <div class="note-item" data-id="2">
+                            <div class="note-content">
+                                <div class="note-title" title="Note 2">
+                                    Helping a local business</div>
+                                <div class="note-subtitle" title="Subtitle 2">
+                                    Amet minim mollit non deserunt iluminated his shop poorly.</div>
+                                <div class="note-meta">
+                                    <span class="meta-tasks">
+                                        <i class="bi bi-list-check meta-icon"></i> 0/3
+                                    </span>
+                                    <span class="meta-link">
+                                        <i class="bi bi-link-45deg meta-icon"></i>
+                                        3
+                                    </span>
+                                    <span class="meta-label label-project"><i class="bi bi-tag-fill"></i>Project</span>
+                                    <span class="meta-label label-more"></i>+2</span>
+                                </div>
+                                <div class="note-footer">
+                                    <span class="note-time">11:24 AM</span>
+                                    <div class="-footer-divider"></div>
+                                    <span class="note-notebook">
+                                        <i class="bi bi-journal"></i>
+                                        NoteBook-01
+                                    </span>
+
+                                </div>
+                            </div>
+                            <img class="note-image"
+                                src="/FrontEnd/img/Modern-interior-Home.png"
+                                alt="Nota" />
+                        </div>
+
+                        <!-- NOTE 3 -->
+                        <div class="note-item" data-id="3">
+                            <div class="note-content">
+                                <div class="note-title" title="Note 3">
+                                    Weekly Team Update</div>
+                                <div class="note-subtitle" title="Subtitle 3">
+                                    Document this week's accomplishments, challenges, and next steps. I don't think you
+                                    want
+                                    to read what we hadn't done due to time constraints.</div>
+
+                                <div class="note-footer">
+                                    <span class="note-time">09:02 AM</span>
+                                    <div class="-footer-divider"></div>
+                                    <span class="note-notebook">
+                                        <i class="bi bi-journal"></i>
+                                        NoteBook-01
+                                    </span>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- NOTE 4 -->
+                        <div class="note-item active" data-id="4">
+                            <div class="note-content">
+                                <div class="note-title" title="Note 4">
+                                    Streamline Your Workflow with These Tips
+                                </div>
+                                <div class="note-subtitle" title="Subtitle 4">
+                                    In today's fast-paced environment we are going to do nothing :/</div>
+                                <div class="note-meta">
+                                    <span class="meta-tasks">
+                                        <i class="bi bi-list-check meta-icon"></i> 0/3
+                                    </span>
+                                    <span class="meta-link">
+                                        <i class="bi bi-link-45deg meta-icon"></i>
+                                        3
+                                    </span>
+                                    <span class="meta-label label-personal"><i
+                                            class="bi bi-tag-fill"></i>Personal</span>
+                                    <span class="meta-label label-more"></i>+2</span>
+                                </div>
+                                <div class="note-footer">
+                                    <span class="note-time">10:20 AM</span>
+                                    <div class="-footer-divider"></div>
+                                    <span class="note-notebook">
+                                        <i class="bi bi-journal"></i>
+                                        NoteBook-01
+                                    </span>
+                                    <span class="note-timer">
+                                        <i class="bi bi-people"></i>
+                                    </span>
+                                    <span class="note-timer">
+                                        <i class="bi bi-alarm"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <img class="note-image"
+                                src="/FrontEnd/img/Reading-Zone-png.jpg"
+                                alt="Nota" />
+                        </div>
+
+                        <!-- NOTE 5 -->
+                        <div class="note-item" data-id="5">
+                            <div class="note-content">
+                                <div class="note-title" title="Note 5">
+                                    Client Meeting Notes</div>
+                                <div class="note-subtitle" title="Subtitle 5">
+                                    Keep a record of all client interactions in one place so you can easily refer back
+                                    to
+                                    them.</div>
+                                <div class="note-meta">
+                                    <span class="meta-tasks">
+                                        <i class="bi bi-list-check meta-icon"></i> 0/3
+                                    </span>
+
+                                    <span class="meta-label label-personal"><i
+                                            class="bi bi-tag-fill"></i>Personal</span>
+                                    <span class="meta-label label-more">+2</span>
+                                </div>
+                                <div class="note-footer">
+                                    <span class="note-time">04:53 PM</span>
+                                    <div class="-footer-divider"></div>
+                                    <span class="note-notebook">
+                                        <i class="bi bi-journal"></i>
+                                        NoteBook-01
+                                    </span>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- NOTA 6 -->
+                        <div class="note-item" data-id="6">
+                            <div class="note-content">
+                                <div class="note-title" title="Note 6">
+                                    Project Kickoff Plan</div>
+                                <div class="note-subtitle" title="Subtitle 6">
+                                    Lay out the initial roadmap for your new project.</div>
+                                <div class="note-meta">
+
+                                    <span class="meta-link">
+                                        <i class="bi bi-link-45deg meta-icon"></i>
+                                        3
+                                    </span>
+                                    <span class="meta-label label-project"><i class="bi bi-tag-fill"></i>Project</span>
+                                </div>
+                                <div class="note-footer">
+                                    <span class="note-time">10:43 AM</span>
+                                    <div class="-footer-divider"></div>
+                                    <span class="note-notebook">
+                                        <i class="bi bi-journal"></i>
+                                        NoteBook-01
+                                    </span>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <button id="add-notes-btn" class="upload-btn share-btn add-notes-btn">
+                            <i class="bi bi-person-plus"></i>
+                            + Add Notes
+                        </button>
+
+                    </div>
+                </div>
+                <div class="two-thirds ">
+                    <!-- TOOLBAR 1 MAIN CONTAINER -->
+                    <div class="toolbar toolbar-main">
+                        <button id="group-excess-of-length-btn" class="toolbar-btn group-btn d-none">
+                            <i class="bi bi-list"></i>
+                        </button>
+                        <div id="toolbar-dropdown" class="toolbar-dropdown"
+                            style="display:none; position:absolute; z-index:100;">
+                            <button class="toolbar-btn star">
+                                <i class="bi bi-star icon-star"></i>
+                                <i class="bi bi-star-fill icon-star-fill"></i>
+                                Favourite
+                            </button>
+                            <button class="toolbar-btn">
+                                <i class="bi bi-arrows-move"></i>
+                                Move
+                            </button>
+                            <button class="toolbar-btn">
+                                <i class="bi bi-files"></i>
+                                Copy
+                            </button>
+                            <button class="toolbar-btn">
+                                <i class="bi bi-file-plus"></i>
+                                Copy Plus
+                            </button>
+                            <button class="toolbar-btn">
+                                <i class="bi bi-box-arrow-up"></i>
+                                Export
+                            </button>
+                            <button class="toolbar-btn">
+                                <i class="bi bi-printer"></i>
+                                Print
+                            </button>
+                            <button class="toolbar-btn">
+                                <i class="bi bi-trash"></i>
+                                Delete
+                            </button>
+                        </div>
+
+                        <button class="toolbar-btn star" title="Favorite">
+                            <i class="bi bi-star icon-star"></i>
+                            <i class="bi bi-star-fill icon-star-fill"></i>
+                        </button>
+                        <div class="toolbar-group">
+                            <button class="toolbar-btn" title="Move">
+                                <i class="bi bi-arrows-move"></i>
+                            </button>
+                            <button class="toolbar-btn" title="Copy">
+                                <i class="bi bi-files"></i>
+                            </button>
+                            <button class="toolbar-btn" title="Copy Plus">
+                                <i class="bi bi-file-plus"></i>
+                            </button>
+                        </div>
+                        <div class="toolbar-sep"></div>
+                        <div class="toolbar-group">
+                            <button class="toolbar-btn" title="Export">
+                                <i class="bi bi-box-arrow-up"></i>
+                            </button>
+                            <button class="toolbar-btn" title="Print">
+                                <i class="bi bi-printer"></i>
+
+                        </div>
+                        <div class="toolbar-sep"></div>
+                        <button class="toolbar-btn" title="Delete">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                        <div class="toolbar-flex"></div>
+
+                        <div class="toolbar-flex"></div>
+                        <div class="toolbar-group">
+                            <button class="people-btn" type="button">
+                                <i class="bi bi-people"></i>
+                                <strong>2 People</strong>
+                            </button>
+                            <button class="upload-btn share-btn">
+                                <i class="bi bi-person-plus"></i>
+                                Share
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- TOOLBAR 2 MAIN CONTAINER -->
+                    <div class="toolbar toolbar-edit">
+                        <!-- Font size -->
+                        <button class="toolbar-btn" title="Font size">
+                            <i class="bi bi-type"></i>
+                        </button>
+                        <button class="dropdown-btn">
+                            <i class="bi bi-caret-down-fill" style="font-size: 8px;"></i>
+                        </button>
+                        <!-- Bold -->
+                        <button class="toolbar-btn" title="Bold">
+                            <i class="bi bi-type-bold"></i>
+                        </button>
+                        <!-- Italic -->
+                        <button class="toolbar-btn" title="Italic">
+                            <i class="bi bi-type-italic"></i>
+                        </button>
+                        <!-- Rayado -->
+                        <button class="toolbar-btn" title="Strikethrough">
+                            <i class="bi bi-type-strikethrough"></i>
+                        </button>
+                        <!-- Underline -->
+                        <button class="toolbar-btn" title="Underline">
+                            <i class="bi bi-type-underline"></i>
+                        </button>
+                        <div class="toolbar-sep"></div>
+                        <!-- Ordered List -->
+                        <button class="toolbar-btn" title="Numbered list">
+                            <i class="bi bi-list-ol"></i>
+                        </button>
+                        <!-- Unordered List -->
+                        <button class="toolbar-btn" title="Bulleted list">
+                            <i class="bi bi-list-ul"></i>
+                        </button>
+                        <div class="toolbar-sep"></div>
+                        <!-- Symbols -->
+                        <button class="toolbar-btn" title="Insert symbols">
+                            <i class="bi bi-card-list"></i>
+                        </button>
+                        <i class="bi bi-caret-down-fill" style="font-size: 8px; color:var(--muted)"></i> </button>
+                        <div class="toolbar-sep"></div>
+                        <!-- Checklist -->
+                        <button class="toolbar-btn" title="Checklist">
+                            <i class="bi bi-ui-checks"></i>
+                        </button>
+                        <!-- Code -->
+                        <button class="toolbar-btn" title="Code">
+                            <i class="bi bi-code-slash"></i>
+                        </button>
+                        <!-- Comments -->
+                        <button class="toolbar-btn" title="Comment">
+                            <i class="bi bi-chat-left-text"></i>
+                        </button>
+                        <!-- Dot Line? -->
+                        <button class="toolbar-btn" title="Dot">
+                            <i class="bi bi-type-underline"></i>
+                        </button>
+                        <!-- Grid -->
+                        <button class="toolbar-btn" title="Grid">
+                            <i class="bi bi-grid-3x3-gap"></i>
+                        </button>
+                        <div class="toolbar-sep"></div>
+                        <!-- Highlight color -->
+                        <button class="toolbar-btn" title="Highlight color">
+                            <i class="bi bi-highlighter"></i>
+                        </button>
+                        <i class="bi bi-caret-down-fill" style="font-size: 8px; color:var(--muted)"></i> </button>
+                        <!-- Text Color-->
+                        <button class="toolbar-btn" title="Text color">
+                            <i class="bi bi-palette"></i>
+                        </button>
+                        <i class="bi bi-caret-down-fill" style="font-size: 8px; color:var(--muted)"></i> </button>
+
+                        <div class="toolbar-sep"></div>
+                        <!-- Insert image -->
+                        <button class="toolbar-btn" title="Insert image">
+                            <i class="bi bi-image"></i>
+                        </button>
+                        <div class="toolbar-sep"></div>
+                        <!-- Ctrl+Z (Undo) -->
+                        <button class="toolbar-btn" title="Undo (Ctrl+Z)">
+                            <i class="bi bi-arrow-return-right" style="transform: rotate(180deg);"></i>
+                        </button>
+                        <!-- Ctrl+Y (Redo) -->
+                        <button class="toolbar-btn" title="Redo (Ctrl+Y)">
+                            <i class="bi bi-arrow-return-left" style="transform: rotate(180deg);"></i>
+                        </button>
+                    </div>
+
+                    <!-- MAIN CONTAINER EDITOR -->
+                    <div class="editor-header">
+                        <i class="bi bi-journal-medical editor-note-icon"></i>
+                        <span class="editor-title" style="padding-left:0px !important">NoteBook-01</span>
+                        <span class="editor-date">Last edited on Dec 13, 2021</span>
+                    </div>
+                    <div class="editor-container">
+
+                        <div class="editor-main">
+                            <h1>Streamline Your Workflow with Actionable Insights</h1>
+                            <p>In today's fast-paced environment, staying organized is the key to success. Use this
+                                space to jot down important ideas, action plans, or meeting notes. With integrated task
+                                management, you can turn your thoughts into actionable steps with deadlines and labels.
+                                Keep your team aligned by sharing updates and progress in real-time. Stay ahead by
+                                prioritizing what matters most.</p>
+                            <a class="editor-link" href="#">https://contoso.sharepoint.com/sites/Adminis....
+                                example, link created</a>
+                        </div>
+                        <div class="editor-tasks">
+
+                            <!-- Task 1 -->
+
+                            <div class="task-row-wrapper active">
+                                <span class="task-drag">
+                                    <i class="bi bi-grip-vertical"></i>
+                                </span>
+                                <div class="task-row active">
+                                    <div class="task-content">
+                                        <div class="task-row-top">
+                                            <input type="checkbox">
+                                            <span class="task-title">Task example</span>
+                                        </div>
+                                        <div class="task-row-bottom">
+                                            <div class="task-row-info">
+                                                <span class="task-deadline">
+                                                    <i class="bi bi-flag"></i> Deadline 21 Dec
+                                                </span>
+                                                <span class="task-time">
+                                                    <i class="bi bi-alarm"></i> 20 Dec, 9:00 AM
+                                                </span>
+                                            </div>
+                                            <div class="task-row-actions">
+                                                <button class="task-btn" title="Temporizador">
+                                                    <i class="bi bi-stopwatch"></i>
+                                                </button>
+                                                <button class="task-btn" title="Flag">
+                                                    <i class="bi bi-flag"></i>
+                                                </button>
+                                                <button class="task-btn" title="Breakpoint">
+                                                    <i class="bi bi-flag-fill"></i>
+                                                </button>
+                                                <button class="task-btn" title="Editar">
+                                                    <i class="bi bi-pencil"></i>
+                                                </button>
+                                                <button class="task-btn" title="Eliminar">
+                                                    <i class="bi bi-trash"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Task 2 -->
+
+                            <div class="task-row-wrapper">
+                                <span class="task-drag">
+                                    <i class="bi bi-grip-vertical"></i>
+                                </span>
+                                <div class="task-row">
+                                    <div class="task-content">
+                                        <div class="task-row-top">
+                                            <input type="checkbox">
+                                            <span class="task-title">Dummy 101</span>
+                                        </div>
+                                        <div class="task-row-bottom">
+                                            <div class="task-row-info">
+                                                <span class="task-deadline">
+                                                    <i class="bi bi-flag"></i> Deadline 21 Dec
+                                                </span>
+                                                <span class="task-time">
+                                                    <i class="bi bi-alarm"></i> 20 Dec, 9:00 AM
+                                                </span>
+                                            </div>
+                                            <div class="task-row-actions">
+                                                <button class="task-btn" title="Temporizador">
+                                                    <i class="bi bi-stopwatch"></i>
+                                                </button>
+                                                <button class="task-btn" title="Flag">
+                                                    <i class="bi bi-flag"></i>
+                                                </button>
+                                                <button class="task-btn" title="Breakpoint">
+                                                    <i class="bi bi-flag-fill"></i>
+                                                </button>
+                                                <button class="task-btn" title="Editar">
+                                                    <i class="bi bi-pencil"></i>
+                                                </button>
+                                                <button class="task-btn" title="Eliminar">
+                                                    <i class="bi bi-trash"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Task 3 -->
+
+                            <div class="task-row-wrapper">
+                                <span class="task-drag">
+                                    <i class="bi bi-grip-vertical"></i>
+                                </span>
+                                <div class="task-row">
+                                    <div class="task-content">
+                                        <div class="task-row-top">
+                                            <input type="checkbox">
+                                            <span class="task-title">Test 123</span>
+                                        </div>
+                                        <div class="task-row-bottom">
+                                            <div class="task-row-info">
+                                            </div>
+                                            <div class="task-row-actions">
+                                                <button class="task-btn" title="Temporizador">
+                                                    <i class="bi bi-stopwatch"></i>
+                                                </button>
+                                                <button class="task-btn" title="Flag">
+                                                    <i class="bi bi-flag"></i>
+                                                </button>
+                                                <button class="task-btn" title="Breakpoint">
+                                                    <i class="bi bi-flag-fill"></i>
+                                                </button>
+                                                <button class="task-btn" title="Editar">
+                                                    <i class="bi bi-pencil"></i>
+                                                </button>
+                                                <button class="task-btn" title="Eliminar">
+                                                    <i class="bi bi-trash"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Add task button -->
+                            <button class="add-task-btn"><i class="bi bi-plus"></i> Add task</button>
+                            <div class="editor-images">
+                                <img src="/FrontEnd/img/Coffe-Shop.png"
+                                    alt="Imagen de ejemplo" />
+                            </div>
+                        </div>
+                    </div>
+            </section>
+        </div>
+
+
+
+
+    </div>
+
+    <script class="js" src="script.js"></script>
+    <script class="js" src="FastAPI.js"></script>
+
+</body>
+
+</html>
