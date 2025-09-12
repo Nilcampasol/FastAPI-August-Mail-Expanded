@@ -1,6 +1,5 @@
 /* LOAD NOTES LIST ITEMS */
 
-
 document.querySelectorAll('.note-item').forEach(item => {
     item.addEventListener('click', async function () {
         const noteId = this.getAttribute('data-id');
@@ -50,10 +49,10 @@ document.querySelectorAll('.note-item').forEach(item => {
                             <div class="task-row-bottom">
                                 <div class="task-row-info">
                                     <span class="task-deadline">
-                                        <i class="bi bi-flag"></i> Deadline 21 Dec
+                                        <i class="bi bi-flag"></i> + Add a Deadline
                                     </span>
                                     <span class="task-time">
-                                        <i class="bi bi-alarm"></i> 20 Dec, 9:00 AM
+                                        <i class="bi bi-alarm"></i> + Add a timer
                                     </span>
                                 </div>
                                 <div class="task-row-actions">
