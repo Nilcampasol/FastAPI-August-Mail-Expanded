@@ -29,17 +29,19 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
 
 /* NOTES LIST */
 
-document.querySelectorAll('.note-item').forEach(item => {
-    item.addEventListener('click', function () {
-        document.querySelectorAll('.note-item.active').forEach(el => el.classList.remove('active'));
-        this.classList.add('active');
+function clickEffectNotes(){
+    document.querySelectorAll('.note-item').forEach(item => {
+        item.addEventListener('click', function () {
+            document.querySelectorAll('.note-item.active').forEach(el => el.classList.remove('active'));
+            this.classList.add('active');
+        });
     });
-});
+}
 
-/* ADD NOTE TO NOTES LIST */
-
-document.getElementById('add-notes-btn').addEventListener('click', function () {
-    const noteHTML = `
+/* MERGE ADD NOTE FOR PHONE AND TABLET AND PC */
+['add-notes-btn', 'create-btn'].forEach(btnId => {
+    document.getElementById(btnId).addEventListener('click', function (){
+        const noteHTML = `
     <div class="note-item">
         <div class="note-content">
             <div class="note-title" title="New Note" contenteditable="true">INSERT TEXT</div>
@@ -62,40 +64,17 @@ document.getElementById('add-notes-btn').addEventListener('click', function () {
         </div>
     </div>
     `;
-    const btn = document.getElementById('add-notes-btn');
-    btn.insertAdjacentHTML('beforebegin', noteHTML);
-    addNoteItemListeners();
-});
+    
+    if(btnId === 'add-notes-btn'){
+        this.insertAdjacentHTML('beforebegin', noteHTML);
+    } else {
+        const notesContainer = document.getElementById('add-notes-btn').parentNode;
+        notesContainer.insertAdjacentHTML('afterbegin', noteHTML);
+    }
 
-/* ADD NOTE FOR TABLET AND PC */
+    initAllTaskFeatures(); 
 
-document.getElementById('create-btn').addEventListener('click', function () {
-    const noteHTML = `
-    <div class="note-item">
-        <div class="note-content">
-            <div class="note-title" title="New Note" contenteditable="true">INSERT TEXT</div>
-            <div class="note-subtitle" title="New Subtitle" contenteditable="true">INSERT TEXT</div>
-            <div class="note-meta">
-                <span class="meta-link">
-                    <i class="bi bi-link-45deg meta-icon"></i>
-                    <span contenteditable="true">3</span>
-                </span>
-                <span class="meta-label label-project"><i class="bi bi-tag-fill"></i><span contenteditable="true">Project</span></span>
-            </div>
-            <div class="note-footer">
-                <span class="note-time" contenteditable="true">10:43 AM</span>
-                <div class="-footer-divider"></div>
-                <span class="note-notebook">
-                    <i class="bi bi-journal"></i>
-                    <span contenteditable="true">NoteBook-01</span>
-                </span>
-            </div>
-        </div>
-    </div>
-    `;
-    const notesContainer = document.getElementById('add-notes-btn').parentNode;
-    notesContainer.insertAdjacentHTML('afterbegin', noteHTML);
-    addNoteItemListeners();
+    })
 });
 
 /* PHONE HAMBURGUER TO OPEN SIDEBAR MENU */
@@ -285,6 +264,7 @@ function initAllTaskFeatures() {
     initTaskDragAndDrop();
     addNoteItemListeners();
     initAddTaskBtn();
+    clickEffectNotes()
 }
 
 function initTaskDeadline() {

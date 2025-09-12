@@ -470,6 +470,7 @@ body {
     max-height: calc(100vh - 56px);
     min-height: 0;
     display: flex;
+    
 }
 
 .one-third.test-bg1 {
@@ -719,6 +720,26 @@ body {
 .label-project {
     background: #ffeee0;
     color: #ff974d;
+}
+
+.label-work {
+    background: #ADD8E6;
+    color: #1976d2;
+}
+
+.label-ideas {
+    background: #FFD700;
+    color: #b8860b;
+}
+
+.label-team {
+    background: #FFA07A;
+    color: #d84315;
+}
+
+.label-update {
+    background: #20B2AB;
+    color: #00695c;
 }
 
 .label-more {
@@ -1003,6 +1024,7 @@ body {
     display: flex;
     align-items: center;
     margin-top: 8px;
+    margin-bottom: 20px;
 }
 
 .editor-note-icon {
@@ -1019,7 +1041,6 @@ body {
 .editor-date {
     color: var(--muted);
     font-size: 13px;
-    margin-left: auto;
     padding-right: 20px;
 }
 
