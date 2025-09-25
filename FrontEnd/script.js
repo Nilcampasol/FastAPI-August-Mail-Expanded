@@ -29,7 +29,7 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
 
 /* NOTES LIST */
 
-function clickEffectNotes(){
+function clickEffectNotes() {
     document.querySelectorAll('.note-item').forEach(item => {
         item.addEventListener('click', function () {
             document.querySelectorAll('.note-item.active').forEach(el => el.classList.remove('active'));
@@ -40,7 +40,7 @@ function clickEffectNotes(){
 
 /* MERGE ADD NOTE FOR PHONE AND TABLET AND PC */
 ['add-notes-btn', 'create-btn'].forEach(btnId => {
-    document.getElementById(btnId).addEventListener('click', function (){
+    document.getElementById(btnId).addEventListener('click', function () {
         const noteHTML = `
     <div class="note-item">
         <div class="note-content">
@@ -64,15 +64,15 @@ function clickEffectNotes(){
         </div>
     </div>
     `;
-    
-    if(btnId === 'add-notes-btn'){
-        this.insertAdjacentHTML('beforebegin', noteHTML);
-    } else {
-        const notesContainer = document.getElementById('add-notes-btn').parentNode;
-        notesContainer.insertAdjacentHTML('afterbegin', noteHTML);
-    }
 
-    initAllTaskFeatures(); 
+        if (btnId === 'add-notes-btn') {
+            this.insertAdjacentHTML('beforebegin', noteHTML);
+        } else {
+            const notesContainer = document.getElementById('add-notes-btn').parentNode;
+            notesContainer.insertAdjacentHTML('afterbegin', noteHTML);
+        }
+
+        initAllTaskFeatures();
 
     })
 });
@@ -206,8 +206,8 @@ function initTaskListeners() {
 /* FUNCTIONALLITY TO ADD TASK BTN */
 
 function initAddTaskBtn() {
-    const addTaskBtn = document.querySelector('.two-thirds .add-task-btn');
-    const tasksContainer = document.querySelector('.two-thirds .editor-tasks');
+    const addTaskBtn = document.querySelector('.add-task-btn');
+    const tasksContainer = document.querySelector('.editor-tasks');
     if (addTaskBtn && tasksContainer) {
         addTaskBtn.onclick = function () {
             const newTask = document.createElement('div');
@@ -225,10 +225,10 @@ function initAddTaskBtn() {
                         <div class="task-row-bottom">
                             <div class="task-row-info">
                                 <span class="task-deadline">
-                                    <i class="bi bi-flag"></i> Deadline
+                                    <i class="bi bi-flag"></i> + Add a Deadline
                                 </span>
                                 <span class="task-time">
-                                    <i class="bi bi-alarm"></i> Add a Deadline
+                                    <i class="bi bi-alarm"></i> + Add a Timer
                                 </span>
                             </div>
                             <div class="task-row-actions">
@@ -252,8 +252,9 @@ function initAddTaskBtn() {
                     </div>
                 </div>
             `;
-            tasksContainer.insertBefore(newTask, addTaskBtn);
-            
+            tasksContainer.insertBefore(newTask, addTaskBtn.parentElement);
+
+            initAllTaskFeatures();
         };
     }
 }
@@ -663,7 +664,7 @@ function renderLabelsWithOverflow(labels, maxWidth = 140) {
     for (let i = 0; i < labels.length; i++) {
         const label = labels[i];
         temp.innerHTML = `<span class="meta-label ${label.css_string}"><i class="bi bi-tag-fill"></i>${label.name}</span>`;
-        const labelWidth = temp.firstChild.offsetWidth + 4; 
+        const labelWidth = temp.firstChild.offsetWidth + 4;
         if (totalWidth + labelWidth > maxWidth) {
             hiddenCount = labels.length - i;
             break;
