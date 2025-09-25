@@ -60,6 +60,7 @@ class ListNote(BaseModel):
     time: str
     has_timer: bool
     has_shared: bool
+    has_link:bool
 
 def get_labels_by_ids(ids):
     return [label for label in general_labels if label.id in ids]
@@ -173,7 +174,8 @@ def note_to_listnote(note: Note) -> ListNote:
         img=note.img[0] if note.img else "",
         time=time,
         has_timer=has_timer,
-        has_shared=has_shared
+        has_shared=has_shared,
+        has_link=bool(note.link)
     )
 
 list_notes = [note_to_listnote(note) for note in notes]

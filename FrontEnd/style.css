@@ -458,8 +458,7 @@ body {
     border-radius: var(--radius);
     min-width: 0;
     flex: 0 0 220px;
-    max-width: 460px;
-    min-width: 360px;
+    width: 460px;
     padding-bottom: 40px;
     flex-shrink: 1;
 }

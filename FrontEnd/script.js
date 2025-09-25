@@ -647,3 +647,39 @@ function initTaskDragAndDrop() {
         });
     });
 }
+
+function renderLabelsWithOverflow(labels, maxWidth = 140) {
+    const temp = document.createElement('div');
+    temp.style.position = 'absolute';
+    temp.style.visibility = 'hidden';
+    temp.style.height = '0';
+    temp.style.whiteSpace = 'nowrap';
+    document.body.appendChild(temp);
+
+    let shownLabels = [];
+    let hiddenCount = 0;
+    let totalWidth = 0;
+
+    for (let i = 0; i < labels.length; i++) {
+        const label = labels[i];
+        temp.innerHTML = `<span class="meta-label ${label.css_string}"><i class="bi bi-tag-fill"></i>${label.name}</span>`;
+        const labelWidth = temp.firstChild.offsetWidth + 4; 
+        if (totalWidth + labelWidth > maxWidth) {
+            hiddenCount = labels.length - i;
+            break;
+        }
+        shownLabels.push(
+            `<span class="meta-label ${label.css_string}"><i class="bi bi-tag-fill"></i>${label.name}</span>`
+        );
+        totalWidth += labelWidth;
+    }
+
+    document.body.removeChild(temp);
+
+    if (hiddenCount > 0) {
+        shownLabels.push(
+            `<span class="meta-label meta-label-overflow">+${hiddenCount}</span>`
+        );
+    }
+    return shownLabels.join('');
+}
