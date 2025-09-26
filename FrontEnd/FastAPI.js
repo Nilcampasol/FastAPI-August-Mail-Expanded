@@ -11,7 +11,6 @@ function addNoteItemClickListeners() {
                 year: 'numeric'
             }).replace(' ', ', ');
 
-            // Icono dinámico
             document.querySelector('.editor-header').innerHTML = `
                 <i class="bi bi-journal-medical editor-note-icon"></i>
                 <span class="editor-title">NoteBook-${note.id}</span>
@@ -19,7 +18,6 @@ function addNoteItemClickListeners() {
                 <span class="editor-date">Last edited: ${formattedDate}</span>
             `;
 
-            // Actualizar etiquetas
             const labelsContainer = document.querySelector('.editor-label');
             let labelsHtml = '';
             note.labels.forEach(label => {
@@ -29,7 +27,6 @@ function addNoteItemClickListeners() {
             });
             labelsContainer.innerHTML = labelsHtml;
 
-            // Actualizar título, contenido y link
             const editorMain = document.querySelector('.editor-main');
             editorMain.innerHTML = `
                 <h1>${note.title}</h1>
@@ -37,10 +34,9 @@ function addNoteItemClickListeners() {
                 <a class="editor-link" href="${note.link || '#'}">${note.link || ''}</a>
             `;
 
-            // Actualizar tareas
             const tasksContainer = document.querySelector('.editor-tasks');
             let tasksHtml = '';
-            note.task.forEach((task, idx) => {
+            Object.values(note.task).forEach((task, idx) => {
                 tasksHtml += `
                     <div class="task-row-wrapper${idx === 0 ? ' active' : ''}">
                         <span class="task-drag">
@@ -85,7 +81,7 @@ function addNoteItemClickListeners() {
                 `;
             });
 
-            const imagesHtml = note.img.map(src => `<img src="${src}" alt="Imagen de ejemplo" style="margin-bottom: 10px;"/>`).join('');
+            const imagesHtml = Object.values(note.img).map(src => `<img src="${src}" alt="Imagen de ejemplo" style="margin-bottom: 10px;"/>`).join('');
 
             tasksHtml += `
                 <div class="add-task-row">
@@ -100,7 +96,6 @@ function addNoteItemClickListeners() {
 
             tasksContainer.innerHTML = tasksHtml;
 
-            // Inicializar funcionalidades de tareas
             if (typeof initAllTaskFeatures === 'function') {
                 initAllTaskFeatures();
             }
@@ -161,3 +156,4 @@ async function loadNotesList() {
 
 
 document.addEventListener('DOMContentLoaded', loadNotesList);
+
