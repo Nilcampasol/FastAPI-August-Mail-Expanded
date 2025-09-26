@@ -31,6 +31,8 @@ class Label(BaseModel):
     name: str
     css_string: str
 
+# Only possible way i found to make inheritance with pydantic models in this case
+
 class BaseNote(BaseModel):
     id: int
     title: str
@@ -207,3 +209,5 @@ def get_note(note_id: int):
     if note:
         return note
     raise HTTPException(status_code=404, detail="Note not found")
+
+
