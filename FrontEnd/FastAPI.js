@@ -45,7 +45,7 @@ function addNoteItemClickListeners() {
                         <div class="task-row${idx === 0 ? ' active' : ''}">
                             <div class="task-content">
                                 <div class="task-row-top">
-                                    <input type="checkbox" ${task.completed ? 'checked' : ''} />
+                                    <input type="checkbox" data-task-id="${task.id}" ${task.completed ? 'checked' : ''} />
                                     <span class="task-title">${task.description}</span>
                                 </div>
                                 <div class="task-row-bottom">
@@ -81,6 +81,8 @@ function addNoteItemClickListeners() {
                 `;
             });
 
+            editorMain.setAttribute('data-note-id', note.id);
+
             const imagesHtml = Object.values(note.img).map(src => `<img src="${src}" alt="Imagen de ejemplo" style="margin-bottom: 10px;"/>`).join('');
 
             tasksHtml += `
@@ -96,8 +98,26 @@ function addNoteItemClickListeners() {
 
             tasksContainer.innerHTML = tasksHtml;
 
-            if (typeof initAllTaskFeatures === 'function') {
-                initAllTaskFeatures();
+            if (tasksContainer) {
+                tasksContainer.addEventListener('change', async (event) => {
+                    if (event.target.matches('input[type="checkbox"][data-task-id]')) {
+                        const noteIdUpdate = editorMain.getAttribute('data-note-id');
+                        const taskId = event.target.dataset.taskId;
+                        const checked = event.target.checked;
+                        await fetch(`http://localhost:8000/tasks/${noteIdUpdate}/${taskId}/done`, {
+                            method: 'PATCH',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ done: checked })
+                        });
+
+                        const response = await fetch(`http://localhost:8000/notes/${noteIdUpdate}`);
+                        const note = await response.json();
+                        const metaTasks = document.querySelector(`.note-item[data-id="${noteIdUpdate}"] .meta-tasks`);
+                        if (metaTasks) {
+                            metaTasks.innerHTML = `<i class="bi bi-list-check meta-icon"></i> ${note.tasks_done}/${note.tasks_count}`;
+                        }
+                    }
+                });
             }
         });
     });
@@ -148,7 +168,7 @@ async function loadNotesList() {
     notesList.appendChild(addBtn);
 
     addNoteItemClickListeners();
-    
+
     if (typeof initAllTaskFeatures === 'function') {
         initAllTaskFeatures();
     }
@@ -156,4 +176,3 @@ async function loadNotesList() {
 
 
 document.addEventListener('DOMContentLoaded', loadNotesList);
-

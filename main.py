@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from pydantic import BaseModel
 from datetime import datetime
 from fastapi import HTTPException
@@ -211,3 +211,21 @@ def get_note(note_id: int):
     raise HTTPException(status_code=404, detail="Note not found")
 
 
+@app.patch("/tasks/{note_id}/{task_id}/done")
+async def update_task_done(note_id: int, task_id: int, request: Request):
+    taskdone = await request.json()
+    done = taskdone.get("done")
+    note = notes.get(note_id)
+    if not note:
+        raise HTTPException(status_code=404, detail="Note not found")
+    task = note.task.get(task_id)
+    if not task:
+        raise HTTPException(status_code=404, detail="Task not found")
+    task.completed = done
+
+    for list_note in list_notes:
+        if list_note.id == note_id:
+            list_note.tasks_done = sum(1 for t in note.task.values() if t.completed)
+            break
+    
+    return {"success": True, "tasks_done": list_note.tasks_done}
