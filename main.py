@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, Body
 from pydantic import BaseModel
 from datetime import datetime
 from fastapi import HTTPException
@@ -210,6 +210,22 @@ def get_note(note_id: int):
         return note
     raise HTTPException(status_code=404, detail="Note not found")
 
+#PERQUE LA PRIMERA TASCA QUE CREAS NO ES GUARDA PERO A PARTIR DE LA SEGONA SI, I A PARTIR DE LA TERÇERA ES CREAN DOS TASQUES, I A PARTIR DE LA CUARTA ES CREAN TRES TASQUES I SUCCESSIVAMENT?
+
+@app.post("/tasks/{note_id}")
+async def add_task(note_id: int, task_data: dict):
+    note = notes.get(note_id)
+    if not note:
+        raise HTTPException(status_code=404, detail="Note not found")
+    new_task_id = max(note.task.keys(), default=0) + 1
+    new_task = Task(
+        id=new_task_id,
+        description=task_data.get("description", ""),
+        completed=task_data.get("completed", False),
+        timer=task_data.get("timer", False)
+        )
+    note.task[new_task_id] = new_task
+    return new_task
 
 @app.patch("/tasks/{note_id}/{task_id}/done")
 async def update_task_done(note_id: int, task_id: int, request: Request):

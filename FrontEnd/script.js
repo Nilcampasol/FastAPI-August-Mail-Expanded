@@ -1,3 +1,12 @@
+function initAllTaskFeatures() {
+    initTaskListeners();
+    initTaskDeadline();
+    initTaskDragAndDrop();
+    addNoteItemListeners();
+    initAddTaskBtn();
+    clickEffectNotes()
+}
+
 /* LEFT SIDEBAR HOVER AND CLICK EFFECT */
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -257,15 +266,6 @@ function initAddTaskBtn() {
             initAllTaskFeatures();
         };
     }
-}
-
-function initAllTaskFeatures() {
-    initTaskListeners();
-    initTaskDeadline();
-    initTaskDragAndDrop();
-    addNoteItemListeners();
-    initAddTaskBtn();
-    clickEffectNotes()
 }
 
 function initTaskDeadline() {

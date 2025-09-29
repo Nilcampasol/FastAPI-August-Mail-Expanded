@@ -98,26 +98,29 @@ function addNoteItemClickListeners() {
 
             tasksContainer.innerHTML = tasksHtml;
 
+            saveNewTasksToBackend();
+
+            if (typeof initAddTaskBtn === 'function') {
+                initAddTaskBtn();
+            }
+
             if (tasksContainer) {
                 tasksContainer.addEventListener('change', async (event) => {
                     if (event.target.matches('input[type="checkbox"][data-task-id]')) {
                         const noteIdUpdate = editorMain.getAttribute('data-note-id');
                         const taskId = event.target.dataset.taskId;
                         const checked = event.target.checked;
-                        await fetch(`http://localhost:8000/tasks/${noteIdUpdate}/${taskId}/done`, {
+                        const response = await fetch(`http://localhost:8000/tasks/${noteIdUpdate}/${taskId}/done`, {
                             method: 'PATCH',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({ done: checked })
                         });
 
-                        const response = await fetch(`http://localhost:8000/notes/${noteIdUpdate}`);
-                        const note = await response.json();
+                        // Simplified update of tasks_done value in note item :)
+                        const data = await response.json();
                         const metaTasks = document.querySelector(`.note-item[data-id="${noteIdUpdate}"] .meta-tasks`);
-                        const tasks = Object.values(note.task);
-                        note.tasks_done = tasks.filter(t => t.completed).length;
-                        note.tasks_count = tasks.length;
                         if (metaTasks) {
-                            metaTasks.innerHTML = `<i class="bi bi-list-check meta-icon"></i> ${note.tasks_done}/${note.tasks_count}`;
+                            metaTasks.innerHTML = metaTasks.innerHTML.replace(/(\d+)\//, `${data.tasks_done}/`);
                         }
                     }
                 });
@@ -171,11 +174,28 @@ async function loadNotesList() {
     notesList.appendChild(addBtn);
 
     addNoteItemClickListeners();
+    
 
     if (typeof initAllTaskFeatures === 'function') {
         initAllTaskFeatures();
     }
 }
 
-
 document.addEventListener('DOMContentLoaded', loadNotesList);
+
+
+
+function saveNewTasksToBackend() {
+    const addTaskBtn = document.querySelector('.add-task-btn');
+    
+    addTaskBtn.addEventListener('click', async () => {
+        const noteId = document.querySelector('.editor-main').getAttribute('data-note-id');
+        const taskDescription = prompt('Enter task description:') || 'Default task description';
+        const response = await fetch(`http://localhost:8000/tasks/${noteId}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ description: taskDescription })
+        });
+    });
+}
+    
