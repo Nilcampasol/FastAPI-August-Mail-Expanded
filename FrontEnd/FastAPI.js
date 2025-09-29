@@ -113,6 +113,9 @@ function addNoteItemClickListeners() {
                         const response = await fetch(`http://localhost:8000/notes/${noteIdUpdate}`);
                         const note = await response.json();
                         const metaTasks = document.querySelector(`.note-item[data-id="${noteIdUpdate}"] .meta-tasks`);
+                        const tasks = Object.values(note.task);
+                        note.tasks_done = tasks.filter(t => t.completed).length;
+                        note.tasks_count = tasks.length;
                         if (metaTasks) {
                             metaTasks.innerHTML = `<i class="bi bi-list-check meta-icon"></i> ${note.tasks_done}/${note.tasks_count}`;
                         }
