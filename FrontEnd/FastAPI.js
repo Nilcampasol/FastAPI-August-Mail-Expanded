@@ -104,6 +104,7 @@ function addNoteItemClickListeners() {
                 initAddTaskBtn();
             }
 
+            /*
             if (tasksContainer) {
                 tasksContainer.addEventListener('change', async (event) => {
                     if (event.target.matches('input[type="checkbox"][data-task-id]')) {
@@ -124,7 +125,7 @@ function addNoteItemClickListeners() {
                         }
                     }
                 });
-            }
+            }*/
         });
     });
 }
@@ -183,19 +184,25 @@ async function loadNotesList() {
 
 document.addEventListener('DOMContentLoaded', loadNotesList);
 
-
-
+/*
 function saveNewTasksToBackend() {
     const addTaskBtn = document.querySelector('.add-task-btn');
     
     addTaskBtn.addEventListener('click', async () => {
         const noteId = document.querySelector('.editor-main').getAttribute('data-note-id');
-        const taskDescription = prompt('Enter task description:') || 'Default task description';
+        const taskDescription = prompt('Enter task description:') || 'New Task';
         const response = await fetch(`http://localhost:8000/tasks/${noteId}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ description: taskDescription })
         });
+        const newTask = await response.json();  //newTask.new_task = Object, 
+                                                // newTask.num_tasks = value of tasks we have
+        const TaskPosition = document.querySelector(`.task-title`)
+        
+        
+
+        
     });
 }
-    
+    */

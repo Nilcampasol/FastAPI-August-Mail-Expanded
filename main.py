@@ -210,8 +210,6 @@ def get_note(note_id: int):
         return note
     raise HTTPException(status_code=404, detail="Note not found")
 
-#PERQUE LA PRIMERA TASCA QUE CREAS NO ES GUARDA PERO A PARTIR DE LA SEGONA SI, I A PARTIR DE LA TERÇERA ES CREAN DOS TASQUES, I A PARTIR DE LA CUARTA ES CREAN TRES TASQUES I SUCCESSIVAMENT?
-
 @app.post("/tasks/{note_id}")
 async def add_task(note_id: int, task_data: dict):
     note = notes.get(note_id)
@@ -225,7 +223,7 @@ async def add_task(note_id: int, task_data: dict):
         timer=task_data.get("timer", False)
         )
     note.task[new_task_id] = new_task
-    return new_task
+    return {"new_task": new_task, "num_tasks": new_task_id} 
 
 @app.patch("/tasks/{note_id}/{task_id}/done")
 async def update_task_done(note_id: int, task_id: int, request: Request):

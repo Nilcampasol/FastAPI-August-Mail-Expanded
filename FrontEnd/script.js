@@ -499,6 +499,7 @@ function initTaskDeadline() {
     });
 }
 
+// Select a Breakpoint date and label color
 document.querySelectorAll('.editor-tasks .task-btn[title="Breakpoint"]').forEach(btn => {
     btn.onclick = function (e) {
         e.stopPropagation();
