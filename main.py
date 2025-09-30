@@ -255,3 +255,17 @@ async def update_task_done(note_id: int, task_id: int, request: Request):
             break
     
     return {"success": True, "tasks_done": list_note.tasks_done}
+
+@app.patch("/list-note/{list_note_id}/time")
+async def update_note_time(list_note_id: int):
+    list_note = next((ln for ln in list_notes if ln.id == list_note_id), None)
+    if not list_note:
+        raise HTTPException(status_code=404, detail="Note not found")
+    list_note.time = datetime.now()
+
+    for list_note in list_notes:
+        if list_note.id == list_note_id:
+            list_note.time = list_note.time.strftime("%H:%M")
+            break
+
+    return {"success": True, "time": list_note.time}

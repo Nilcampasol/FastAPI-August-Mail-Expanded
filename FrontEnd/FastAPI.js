@@ -212,6 +212,8 @@ async function loadConcreteNoteList(list_note_id) {
                 ${note.img ? `<img class="note-image" src="${note.img}" alt="Nota" />` : ''}
         `;
 
+    setActualTime(list_note_id);
+
     if (typeof initAllTaskFeatures === 'function') {
         initAllTaskFeatures();
     }
@@ -240,7 +242,7 @@ async function checkTask(taskId, noteId) {
 }
 
 async function saveNewTask(noteId) {
-    const taskDescription =  'New Task';
+    const taskDescription = 'New Task';
     await fetch(`http://localhost:8000/tasks/${noteId}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -248,4 +250,13 @@ async function saveNewTask(noteId) {
     });
 
     await loadConcreteNoteList(noteId);
+}
+
+async function setActualTime(noteId) {
+
+    await fetch(`http://localhost:8000/list-note/${noteId}/time`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+    });
+
 }
