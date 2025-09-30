@@ -94,6 +94,12 @@ function addNoteItemClickListeners() {
                 </div>
             `;
 
+            // HERE IT WOULD BE LIKELLY TO ADD THE INITIALIZATION OF ALL THE LISTENERS FOR THE NOTES //
+            // HERE IT WOULD BE LIKELLY TO ADD THE INITIALIZATION OF ALL THE LISTENERS FOR THE NOTES //
+            // HERE IT WOULD BE LIKELLY TO ADD THE INITIALIZATION OF ALL THE LISTENERS FOR THE NOTES //
+
+            addCheckboxListenersToNoteDetails()
+
             tasksContainer.innerHTML = tasksHtml;
 
             if (typeof initAllTaskFeatures === 'function') {
@@ -148,12 +154,91 @@ async function loadNotesList() {
     notesList.appendChild(addBtn);
 
     addNoteItemClickListeners();
-    
+
     if (typeof initAllTaskFeatures === 'function') {
         initAllTaskFeatures();
     }
 }
 
-
 document.addEventListener('DOMContentLoaded', loadNotesList);
 
+
+// FUNCTION TO UPDATE A SINGLE NOTE IN THE LIST //
+// FUNCTION TO UPDATE A SINGLE NOTE IN THE LIST //
+// FUNCTION TO UPDATE A SINGLE NOTE IN THE LIST //
+
+
+async function loadConcreteNoteList(noteId) {
+
+    const response = await fetch(`http://localhost:8000/notes/${noteId}`);
+    const note = await response.json();
+
+    const concreteNote = document.querySelector(`.note-item[data-id="${note.id}"]`);
+    const addBtn = document.getElementById('add-notes-btn');
+
+    concreteNote.innerHTML = '';
+    concreteNote.innerHTML += `
+            <div class="note-item" data-id="${note.id}">
+                <div class="note-content">
+                    <div class="note-title" title="${note.title}">
+                        ${note.title}
+                    </div>
+                    <div class="note-subtitle" title="${note.subtitle}">
+                        ${note.subtitle}
+                    </div>
+                    <div class="note-meta">
+                        <span class="meta-tasks">
+                            <i class="bi bi-list-check meta-icon"></i> ${note.tasks_done}/${note.tasks_count}
+                        </span>
+                        ${note.has_link ? `
+                            <span class="meta-link">
+                                <i class="bi bi-link-45deg meta-icon"></i>
+                            </span>
+                        ` : ''}
+                        ${renderLabelsWithOverflow(note.labels)}
+                    </div>
+                    <div class="note-footer">
+                        <span class="note-time">${note.time}</span>
+                        <div class="-footer-divider"></div>
+                        <span class="note-notebook">
+                            <i class="bi bi-journal"></i>
+                            NoteBook-01
+                        </span>
+                        ${note.has_timer ? `<span class="note-timer"><i class="bi bi-alarm"></i></span>` : ''}
+                    </div>
+                </div>
+                ${note.img ? `<img class="note-image" src="${note.img}" alt="Nota" />` : ''}
+            </div>
+        `;
+
+    concreteNote.appendChild(addBtn);
+
+    addNoteItemClickListeners();
+
+    if (typeof initAllTaskFeatures === 'function') {
+        initAllTaskFeatures();
+    }
+}
+
+// LISTENERS FOR NOTES UPDATES //
+// LISTENERS FOR NOTES UPDATES //
+// LISTENERS FOR NOTES UPDATES //
+
+// Update Checkbox Task //
+
+function addCheckboxListenersToNoteDetails() {
+    document.querySelectorAll('.editor-tasks input[type="checkbox"]').forEach(checkbox => {
+        checkbox.addEventListener('change', async function () {
+            const taskId = this.dataset.taskId;
+            const checked = this.checked;
+
+            await fetch(`https://localhost:8000/tasks/${noteId}/${taskId}/done`, {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ completed: checked })
+            });
+
+            await loadConcreteNoteList(noteId);
+        })
+    })
+}
