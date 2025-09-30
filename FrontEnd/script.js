@@ -255,6 +255,7 @@ function initAddTaskBtn() {
             tasksContainer.insertBefore(newTask, addTaskBtn.parentElement);
 
             initAllTaskFeatures();
+
         };
     }
 }

@@ -146,7 +146,7 @@ function addNoteItemClickListeners() {
             const imagesHtml = Object.values(note.img).map(src => `<img src="${src}" alt="Imagen de ejemplo" style="margin-bottom: 10px;"/>`).join('');
 
             tasksHtml += `
-                <div class="add-task-row">
+                <div onClick="saveNewTask(${note.id});" class="add-task-row">
                     <button class="add-task-btn">
                         <i class="bi bi-plus"></i> Add Task
                     </button>
@@ -212,9 +212,9 @@ async function loadConcreteNoteList(list_note_id) {
                 ${note.img ? `<img class="note-image" src="${note.img}" alt="Nota" />` : ''}
         `;
 
-        if(typeof initAllTaskFeatures === 'function') {
-            initAllTaskFeatures();
-        }
+    if (typeof initAllTaskFeatures === 'function') {
+        initAllTaskFeatures();
+    }
 
 }
 
@@ -237,5 +237,14 @@ async function checkTask(taskId, noteId) {
 
     await loadConcreteNoteList(noteId);
 
+}
 
+async function saveNewTask(noteId) {
+    await fetch(`http://localhost:8000/tasks/${noteId}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ description: 'New Task'})
+    });
+
+    await loadConcreteNoteList(noteId);
 }

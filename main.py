@@ -217,6 +217,26 @@ def get_list_note(list_note_id: int):
             return list_note
     raise HTTPException(status_code=404, detail="List Note not found")
 
+@app.post("/tasks/{note_id}")
+async def add_task(note_id: int, task_data: dict):
+    note = notes.get(note_id)
+    if not note:
+        raise HTTPException(status_code=404, detail="Note not found")
+    new_task_id = max(note.task.keys(), default=0) + 1
+    new_task = Task(
+        id=new_task_id,
+        description=task_data.get("description", ""),
+        completed=task_data.get("completed", False),
+        timer=task_data.get("timer", False)
+        )
+    note.task[new_task_id] = new_task
+    
+    for list_note in list_notes:
+        if list_note.id == note_id:
+            list_note.tasks_count += 1
+
+    return new_task
+
 @app.patch("/tasks/{note_id}/{task_id}/done")
 async def update_task_done(note_id: int, task_id: int, request: Request):
     taskdone = await request.json()
