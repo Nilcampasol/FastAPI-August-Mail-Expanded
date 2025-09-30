@@ -240,10 +240,11 @@ async function checkTask(taskId, noteId) {
 }
 
 async function saveNewTask(noteId) {
+    const taskDescription =  'New Task';
     await fetch(`http://localhost:8000/tasks/${noteId}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ description: 'New Task'})
+        body: JSON.stringify({ description: taskDescription })
     });
 
     await loadConcreteNoteList(noteId);
