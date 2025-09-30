@@ -753,14 +753,33 @@ body {
     margin-right: 8px;
 }
 
-/* PERSON LABEL COLOR */
 .label-personal i.bi-tag-fill {
     color: #52c41a;
 }
 
-/* PROJECT LABEL COLOR */
 .label-project i.bi-tag-fill {
     color: #ff974d;
+}
+
+
+.label-work i.bi-tag-fill {
+    color: #1976d2;
+}
+
+.label-ideas i.bi-tag-fill {
+    color: #b8860b;
+}
+
+.label-team i.bi-tag-fill {
+    color: #d84315;
+}
+
+.label-update i.bi-tag-fill {
+    color: #00695c;
+}
+
+.label-more i.bi-tag-fill {
+    color: #888;
 }
 
 .note-footer {
