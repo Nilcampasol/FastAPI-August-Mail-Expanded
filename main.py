@@ -2,8 +2,8 @@ from fastapi import FastAPI, Request
 from pydantic import BaseModel
 from datetime import datetime
 from fastapi import HTTPException
-from typing import Dict, List
 from fastapi.middleware.cors import CORSMiddleware
+import pytz
 
 app = FastAPI()
 
@@ -15,9 +15,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.get("/")
-def read_root():
-    return {"message": "API funcionando"}
 
 
 class Task(BaseModel):
@@ -197,7 +194,13 @@ def note_to_listnote(note: Note) -> ListNote:
         has_link=bool(note.link)
     )
 
+#CONVERT TO DICTIONARY
+
 list_notes = [note_to_listnote(note) for note in notes.values()]
+
+@app.get("/")
+def read_root():
+    return {"message": "API funcionando"}
 
 @app.get("/notes")
 def get_notes():
@@ -261,11 +264,11 @@ async def update_note_time(list_note_id: int):
     list_note = next((ln for ln in list_notes if ln.id == list_note_id), None)
     if not list_note:
         raise HTTPException(status_code=404, detail="Note not found")
-    list_note.time = datetime.now()
+    actualtime = datetime.now(pytz.timezone('Europe/Madrid')).strftime("%H:%M")
 
     for list_note in list_notes:
         if list_note.id == list_note_id:
-            list_note.time = list_note.time.strftime("%H:%M")
+            list_note.time = actualtime
             break
 
     return {"success": True, "time": list_note.time}

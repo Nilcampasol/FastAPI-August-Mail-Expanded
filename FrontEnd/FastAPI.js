@@ -175,7 +175,11 @@ function addNoteItemClickListeners() {
 
 async function loadConcreteNoteList(list_note_id) {
 
+    await setActualTime(list_note_id);
+    
     const response = await fetch(`http://localhost:8000/list-note/${list_note_id}`);
+
+
     const note = await response.json();
     const noteItem = document.querySelector(`.note-item[data-id="${note.id}"]`);
     if (!noteItem) return;
@@ -211,8 +215,6 @@ async function loadConcreteNoteList(list_note_id) {
                 </div>
                 ${note.img ? `<img class="note-image" src="${note.img}" alt="Nota" />` : ''}
         `;
-
-    setActualTime(list_note_id);
 
     if (typeof initAllTaskFeatures === 'function') {
         initAllTaskFeatures();
@@ -258,5 +260,6 @@ async function setActualTime(noteId) {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
     });
+
 
 }

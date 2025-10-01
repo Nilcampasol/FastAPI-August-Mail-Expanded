@@ -193,8 +193,7 @@
     }
 
     .one-third {
-        max-width: none;
-        min-width: none;
+        width: calc(100% - var(--serarch-width) - var(--actions-width));
     }
 
     .two-thirds {
