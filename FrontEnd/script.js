@@ -39,7 +39,7 @@ function clickEffectNotes() {
 }
 
 /* MERGE ADD NOTE FOR PHONE AND TABLET AND PC */
-['add-notes-btn', 'create-btn'].forEach(btnId => {
+/*['add-notes-btn', 'create-btn'].forEach(btnId => {
     document.getElementById(btnId).addEventListener('click', function () {
         const noteHTML = `
     <div class="note-item">
@@ -76,7 +76,7 @@ function clickEffectNotes() {
 
     })
 });
-
+*/
 /* PHONE HAMBURGUER TO OPEN SIDEBAR MENU */
 
 document.getElementById('open-sidebar-btn').addEventListener('click', function () {

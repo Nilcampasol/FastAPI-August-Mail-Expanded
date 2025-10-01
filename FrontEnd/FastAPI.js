@@ -261,5 +261,14 @@ async function setActualTime(noteId) {
         headers: { 'Content-Type': 'application/json' },
     });
 
+}
+
+async function saveNewNoteList() {
+    await fetch(`http://localhost:8000/notes/newNote`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+    });
+
+    await loadNotesList();
 
 }
