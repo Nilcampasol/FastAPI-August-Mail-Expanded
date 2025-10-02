@@ -205,7 +205,7 @@ function initTaskListeners() {
 
 /* FUNCTIONALLITY TO ADD TASK BTN */
 
-function initAddTaskBtn() {
+/*function initAddTaskBtn() {
     const addTaskBtn = document.querySelector('.add-task-btn');
     const tasksContainer = document.querySelector('.editor-tasks');
     if (addTaskBtn && tasksContainer) {
@@ -258,14 +258,13 @@ function initAddTaskBtn() {
 
         };
     }
-}
+}*/
 
 function initAllTaskFeatures() {
     initTaskListeners();
     initTaskDeadline();
     initTaskDragAndDrop();
     addNoteItemListeners();
-    initAddTaskBtn();
     clickEffectNotes()
 }
 

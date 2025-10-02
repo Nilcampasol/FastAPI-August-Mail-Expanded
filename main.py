@@ -27,7 +27,7 @@ def get_notes():
     return list_notes
 
 
-@app.get("/notes/{note_id}")
+@app.get("/notes/{note_id}", response_model=Note)
 def get_note(note_id: int):
     note = notes.get(note_id)
     if note:

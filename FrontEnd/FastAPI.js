@@ -8,9 +8,12 @@ async function loadNotesList() {
     const notesList = document.getElementById('notes-list');
     const addBtn = document.getElementById('add-notes-btn');
     notesList.innerHTML = '';
+
+    
+
     notes.forEach(note => {
         notesList.innerHTML += `
-            <div class="note-item" data-id="${note.id}">
+            <div class="note-item" onClick="fetchArticle(${note.id})" data-id="${note.id}">
                 <div class="note-content">
                     <div class="note-title" title="${note.title}">
                         ${note.title}
@@ -46,8 +49,6 @@ async function loadNotesList() {
 
     notesList.appendChild(addBtn);
 
-    addNoteItemClickListeners();
-
     if (typeof initAllTaskFeatures === 'function') {
         initAllTaskFeatures();
     }
@@ -60,46 +61,51 @@ document.addEventListener('DOMContentLoaded', loadNotesList);
 // DONAR LA FUNCIÓ ALS ITEMS DE LES NOTES-LIST PER QUE APAREGUI EL DETALL //
 // DONAR LA FUNCIÓ ALS ITEMS DE LES NOTES-LIST PER QUE APAREGUI EL DETALL //
 
-function addNoteItemClickListeners() {
-    document.querySelectorAll('.note-item').forEach(item => {
-        item.addEventListener('click', async function () { //ES POT BORRAR
-            const noteId = this.getAttribute('data-id');
-            const response = await fetch(`http://localhost:8000/notes/${noteId}`);
-            const note = await response.json();
-            const date = new Date(note.last_edited);
-            const formattedDate = date.toLocaleString('en-US', {
-                month: 'short',
-                day: '2-digit',
-                year: 'numeric'
-            }).replace(' ', ', ');
+function fetchArticle(note_id) {
 
-            document.querySelector('.editor-header').innerHTML = `
+    fetch (`http://localhost:8000/notes/${note_id}`, {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' }
+    })
+
+    .then(response => response.json())
+    .then(response => {
+        console.log(response);
+        drawArticle(response)})
+
+    }
+
+function drawArticle(note){
+    
+    
+    document.querySelector('.editor-header').innerHTML = `
                 <i class="bi bi-journal-medical editor-note-icon"></i>
                 <span class="editor-title">NoteBook-${note.id}</span>
                 <div class="editor-label"></div>
-                <span class="editor-date">Last edited: ${formattedDate}</span>
+                <span class="editor-date">Last edited: ${note.last_edited}</span>
             `;
 
-            const labelsContainer = document.querySelector('.editor-label');
-            let labelsHtml = '';
-            note.labels.forEach(label => {
-                labelsHtml += `
+    const labelsContainer = document.querySelector('.editor-label');
+    let labelsHtml = '';
+    
+    note.labels.forEach(label => {
+        labelsHtml += `
                     <span class="meta-label ${label.css_string}"><i class="bi bi-tag-fill"></i>${label.name}</span>
                 `;
-            });
-            labelsContainer.innerHTML = labelsHtml;
+    });
+    labelsContainer.innerHTML = labelsHtml;
 
-            const editorMain = document.querySelector('.editor-main');
-            editorMain.innerHTML = `
+    const editorMain = document.querySelector('.editor-main');
+    editorMain.innerHTML = `
                 <h1>${note.title}</h1>
                 <p>${note.content}</p>
                 <a class="editor-link" href="${note.link || '#'}">${note.link || ''}</a>
             `;
 
-            const tasksContainer = document.querySelector('.editor-tasks');
-            let tasksHtml = '';
-            Object.values(note.task).forEach((task, idx) => {
-                tasksHtml += `
+    const tasksContainer = document.querySelector('.editor-tasks');
+    let tasksHtml = '';
+     {Object.values(note.task).forEach((task, idx) =>
+        tasksHtml += `
                     <div class="task-row-wrapper${idx === 0 ? ' active' : ''}">
                         <span class="task-drag">
                             <i class="bi bi-grip-vertical"></i>
@@ -107,7 +113,7 @@ function addNoteItemClickListeners() {
                         <div class="task-row${idx === 0 ? ' active' : ''}">
                             <div class="task-content">
                                 <div class="task-row-top">
-                                    <input onClick="checkTask(${task.id}, ${noteId})" type="checkbox" data-task-id="${task.id}" ${task.completed ? 'checked' : ''} />
+                                    <input onClick="checkTask(${task.id}, ${note.id})" type="checkbox" data-task-id="${task.id}" ${task.completed ? 'checked' : ''} />
                                     <span class="task-title">${task.description}</span>
                                 </div>
                                 <div class="task-row-bottom">
@@ -140,12 +146,11 @@ function addNoteItemClickListeners() {
                             </div>
                         </div>
                     </div>
-                `;
-            });
+                `  )};
 
-            const imagesHtml = Object.values(note.img).map(src => `<img src="${src}" alt="Imagen de ejemplo" style="margin-bottom: 10px;"/>`).join('');
+    const imagesHtml = Object.values(note.img).map(src => `<img src="${src}" alt="Imagen de ejemplo" style="margin-bottom: 10px;"/>`).join('');
 
-            tasksHtml += `
+    tasksHtml += `
                 <div onClick="saveNewTask(${note.id});" class="add-task-row">
                     <button class="add-task-btn">
                         <i class="bi bi-plus"></i> Add Task
@@ -156,17 +161,15 @@ function addNoteItemClickListeners() {
                 </div>
             `;
 
-            // HERE IT WOULD BE LIKELLY TO ADD THE INITIALIZATION OF ALL THE LISTENERS FOR THE NOTES //
-            // HERE IT WOULD BE LIKELLY TO ADD THE INITIALIZATION OF ALL THE LISTENERS FOR THE NOTES //
-            // HERE IT WOULD BE LIKELLY TO ADD THE INITIALIZATION OF ALL THE LISTENERS FOR THE NOTES //
+    // HERE IT WOULD BE LIKELLY TO ADD THE INITIALIZATION OF ALL THE LISTENERS FOR THE NOTES //
+    // HERE IT WOULD BE LIKELLY TO ADD THE INITIALIZATION OF ALL THE LISTENERS FOR THE NOTES //
+    // HERE IT WOULD BE LIKELLY TO ADD THE INITIALIZATION OF ALL THE LISTENERS FOR THE NOTES //
 
-            tasksContainer.innerHTML = tasksHtml;
+    tasksContainer.innerHTML = tasksHtml;
 
-            if (typeof initAllTaskFeatures === 'function') {
-                initAllTaskFeatures();
-            }
-        });
-    });
+    if (typeof initAllTaskFeatures === 'function') {
+        initAllTaskFeatures();
+    }
 }
 
 // ACTUALIZA UNA NOTA EN CONCRETO //
@@ -176,7 +179,7 @@ function addNoteItemClickListeners() {
 async function loadConcreteNoteList(list_note_id) {
 
     await setActualTime(list_note_id);
-    
+
     const response = await fetch(`http://localhost:8000/list-note/${list_note_id}`);
 
 
@@ -250,6 +253,8 @@ async function saveNewTask(noteId) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ description: taskDescription })
     });
+
+    await fetchArticle(noteId);
 
     await loadConcreteNoteList(noteId);
 }
