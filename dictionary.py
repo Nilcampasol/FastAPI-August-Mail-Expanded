@@ -33,6 +33,7 @@ class ListNote(BaseNote):
     has_timer: bool
     has_shared: bool
     has_link: bool
+    last_edited: datetime
 
 general_labels = [
     Label(id=1, name="Personal", css_string= "label-personal"),
@@ -176,7 +177,8 @@ def note_to_listnote(note: Note) -> ListNote:
         time=time,
         has_timer=has_timer,
         has_shared=has_shared,
-        has_link=bool(note.link)
+        has_link=bool(note.link),
+        last_edited=note.last_edited
     )
 
 #CONVERT TO DICTIONARY

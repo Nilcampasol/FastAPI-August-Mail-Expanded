@@ -91,7 +91,7 @@ async def update_note_time(list_note_id: int):
     if not list_note:
         raise HTTPException(status_code=404, detail="Note not found")
     actualtime = datetime.now(pytz.timezone('Europe/Madrid')).strftime("%H:%M")
-
+    note = notes.get(list_note.id)
     for list_note in list_notes:
         if list_note.id == list_note_id:
             list_note.time = actualtime

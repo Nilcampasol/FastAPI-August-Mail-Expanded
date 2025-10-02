@@ -2,16 +2,19 @@
 // CARREGAR TOTES LES NOTES-LIST AL SIDEBAR //
 // CARREGAR TOTES LES NOTES-LIST AL SIDEBAR //
 
+function compareFn(a, b) {
+    return Date.parse(b.last_edited) - Date.parse(a.last_edited) 
+}
+
 async function loadNotesList() {
     const response = await fetch('http://localhost:8000/notes');
-    const notes = await response.json();
+    const list_notes = await response.json();
     const notesList = document.getElementById('notes-list');
     const addBtn = document.getElementById('add-notes-btn');
     notesList.innerHTML = '';
-
     
-
-    notes.forEach(note => {
+    list_notes.sort(compareFn)
+    list_notes.forEach(note => {
         notesList.innerHTML += `
             <div class="note-item" onClick="fetchArticle(${note.id})" data-id="${note.id}">
                 <div class="note-content">
@@ -69,14 +72,11 @@ function fetchArticle(note_id) {
     })
 
     .then(response => response.json())
-    .then(response => {
-        console.log(response);
-        drawArticle(response)})
+    .then(response => {drawArticle(response)})
 
     }
 
 function drawArticle(note){
-    
     
     document.querySelector('.editor-header').innerHTML = `
                 <i class="bi bi-journal-medical editor-note-icon"></i>
