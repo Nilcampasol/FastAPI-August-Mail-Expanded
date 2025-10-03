@@ -61,12 +61,17 @@ async function loadNotesList() {
 
 // LOAD CONCRETE NOTES //
 
-function filterThroughtNotes(list_notes) {
+async function filterThroughtNotes(list_notes_id) {
+    const hiddenItems = new Set(list_notes_id);
+    const items = document.querySelectorAll('.note-item');
 
-    for(let i=0; i<list_notes.length; i++) {
-        //list_notes es una llista de notes, la hem de recorre, netejar la llista de notes actual que tenim a note-items, i imprimir nomes les notes de la llista de listnotes
+    const showAll = hiddenItems.size === 0;
+    
+    for (let i = 0; i < items.length; i++) {
+        const el = items[i];
+        const hide = !showAll && hiddenItems.has(el.id);
+        el.classList.toggle('d-none', hide);  
     }
-
 }
 
 // LOAD NOTES WITH TIMER //
@@ -128,28 +133,23 @@ async function loadTimerNotes() {
 // SEARCH FOR ITEMS //
 
 function searchFunction() {
-    var input, filter, ul, li, a, i;
+    var input, filter, ul, li;
     input = document.getElementById("search");
     filter = input.value.toUpperCase();
     ul = document.getElementById("notes-list");
     li = ul.getElementsByClassName("note-item");
-    
-    console.log(li)
-    console.log(filter)
 
     const filtered_items = []
 
-    for (i = 0; i < li.length; i++) {
-        a = li[i].getElementsByClassName("note-title")[0].innerText
-        if (a.toUpperCase().indexOf(filter) > -1) {
-            filtered_items.push(li[i].id)
+    for (let i = 0; i < li.length; i++) {
+        const titleElement = li[i].querySelector(".note-title");
+        const title = titleElement.innerText.toUpperCase();  
+        if(title.indexOf(filter) === -1){
+            filtered_items.push(li[i].id);
         }
     }
 
-    console.log(filtered_items);
-    //AT THIS POINT WE ARE GETTING THE FILTERED FOR THE LETTER LIST, NOW WE HAVE TO NOT UPDATE EVERYTHING AND UPLOAD THIS LIST ONLY OF NOTELISTS
-
-    //WE HAVE TO CALL TO THE FUNCTION LIKE THIS: loadfilterThroughtNotes(filtered_items)
+    filterThroughtNotes(filtered_items);
 }
 
 
