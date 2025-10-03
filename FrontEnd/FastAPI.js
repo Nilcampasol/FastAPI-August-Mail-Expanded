@@ -3,7 +3,8 @@
 // CARREGAR TOTES LES NOTES-LIST AL SIDEBAR //
 
 function compareFn(a, b) {
-    return Date.parse(b.last_edited) - Date.parse(a.last_edited) 
+    console.log(Date.parse(b.last_edited) - Date.parse(a.last_edited))
+    return Date.parse(b.last_edited) - Date.parse(a.last_edited)
 }
 
 async function loadNotesList() {
@@ -12,11 +13,11 @@ async function loadNotesList() {
     const notesList = document.getElementById('notes-list');
     const addBtn = document.getElementById('add-notes-btn');
     notesList.innerHTML = '';
-    
     list_notes.sort(compareFn)
     list_notes.forEach(note => {
+
         notesList.innerHTML += `
-            <div class="note-item" onClick="fetchArticle(${note.id})" data-id="${note.id}">
+            <div id="${note.id}" class="note-item" onClick="fetchArticle(${note.id})" data-id="${note.id}">
                 <div class="note-content">
                     <div class="note-title" title="${note.title}">
                         ${note.title}
@@ -58,6 +59,100 @@ async function loadNotesList() {
 
 }
 
+// LOAD CONCRETE NOTES //
+
+function filterThroughtNotes(list_notes) {
+
+    for(let i=0; i<list_notes.length; i++) {
+        //list_notes es una llista de notes, la hem de recorre, netejar la llista de notes actual que tenim a note-items, i imprimir nomes les notes de la llista de listnotes
+    }
+
+}
+
+// LOAD NOTES WITH TIMER //
+
+async function loadTimerNotes() {
+    const response = await fetch('http://localhost:8000/notes');
+    const list_notes = await response.json();
+    const notesList = document.getElementById('notes-list');
+    const addBtn = document.getElementById('add-notes-btn');
+    notesList.innerHTML = '';
+    list_notes.sort(compareFn)
+    list_notes.forEach(note => {
+        if (note.has_timer) { //DIFERENT AL ANTERIOR //
+
+            notesList.innerHTML += `
+                <div id="${note.id}" class="note-item" onClick="fetchArticle(${note.id})" data-id="${note.id}">
+                    <div class="note-content">
+                        <div class="note-title" title="${note.title}">
+                            ${note.title}
+                        </div>
+                        <div class="note-subtitle" title="${note.subtitle}">
+                            ${note.subtitle}
+                        </div>
+                        <div class="note-meta">
+                            <span class="meta-tasks">
+                                <i class="bi bi-list-check meta-icon"></i> ${note.tasks_done}/${note.tasks_count}
+                            </span>
+                            ${note.has_link ? `
+                                <span class="meta-link">
+                                    <i class="bi bi-link-45deg meta-icon"></i>
+                                </span>
+                            ` : ''}
+                            ${renderLabelsWithOverflow(note.labels)}
+                        </div>
+                        <div class="note-footer">
+                            <span class="note-time">${note.time}</span>
+                            <div class="-footer-divider"></div>
+                            <span class="note-notebook">
+                                <i class="bi bi-journal"></i>
+                                NoteBook-01
+                            </span>
+                            ${note.has_timer ? `<span class="note-timer"><i class="bi bi-alarm"></i></span>` : ''}
+                        </div>
+                    </div>
+                    ${note.img ? `<img class="note-image" src="${note.img}" alt="Nota" />` : ''}
+                </div>
+            `;
+        }
+    });
+
+    notesList.appendChild(addBtn);
+
+    if (typeof initAllTaskFeatures === 'function') {
+        initAllTaskFeatures();
+    }
+
+}
+
+// SEARCH FOR ITEMS //
+
+function searchFunction() {
+    var input, filter, ul, li, a, i;
+    input = document.getElementById("search");
+    filter = input.value.toUpperCase();
+    ul = document.getElementById("notes-list");
+    li = ul.getElementsByClassName("note-item");
+    
+    console.log(li)
+    console.log(filter)
+
+    const filtered_items = []
+
+    for (i = 0; i < li.length; i++) {
+        a = li[i].getElementsByClassName("note-title")[0].innerText
+        if (a.toUpperCase().indexOf(filter) > -1) {
+            filtered_items.push(li[i].id)
+        }
+    }
+
+    console.log(filtered_items);
+    //AT THIS POINT WE ARE GETTING THE FILTERED FOR THE LETTER LIST, NOW WE HAVE TO NOT UPDATE EVERYTHING AND UPLOAD THIS LIST ONLY OF NOTELISTS
+
+    //WE HAVE TO CALL TO THE FUNCTION LIKE THIS: loadfilterThroughtNotes(filtered_items)
+}
+
+
 document.addEventListener('DOMContentLoaded', loadNotesList);
 
 // DONAR LA FUNCIÓ ALS ITEMS DE LES NOTES-LIST PER QUE APAREGUI EL DETALL //
@@ -66,18 +161,20 @@ document.addEventListener('DOMContentLoaded', loadNotesList);
 
 function fetchArticle(note_id) {
 
-    fetch (`http://localhost:8000/notes/${note_id}`, {
+    fetch(`http://localhost:8000/notes/${note_id}`, {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' }
     })
 
-    .then(response => response.json())
-    .then(response => {drawArticle(response)})
+        .then(response => response.json())
+        .then(response => { drawArticle(response) })
 
-    }
+}
 
-function drawArticle(note){
-    
+function drawArticle(note) {
+
+
+
     document.querySelector('.editor-header').innerHTML = `
                 <i class="bi bi-journal-medical editor-note-icon"></i>
                 <span class="editor-title">NoteBook-${note.id}</span>
@@ -87,7 +184,7 @@ function drawArticle(note){
 
     const labelsContainer = document.querySelector('.editor-label');
     let labelsHtml = '';
-    
+
     note.labels.forEach(label => {
         labelsHtml += `
                     <span class="meta-label ${label.css_string}"><i class="bi bi-tag-fill"></i>${label.name}</span>
@@ -104,8 +201,9 @@ function drawArticle(note){
 
     const tasksContainer = document.querySelector('.editor-tasks');
     let tasksHtml = '';
-     {Object.values(note.task).forEach((task, idx) =>
-        tasksHtml += `
+    {
+        Object.values(note.task).forEach((task, idx) =>
+            tasksHtml += `
                     <div class="task-row-wrapper${idx === 0 ? ' active' : ''}">
                         <span class="task-drag">
                             <i class="bi bi-grip-vertical"></i>
@@ -146,7 +244,8 @@ function drawArticle(note){
                             </div>
                         </div>
                     </div>
-                `  )};
+                `  )
+    };
 
     const imagesHtml = Object.values(note.img).map(src => `<img src="${src}" alt="Imagen de ejemplo" style="margin-bottom: 10px;"/>`).join('');
 

@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from datetime import datetime
+from datetime import datetime, date
 
 class Task(BaseModel):
     id: int
@@ -57,7 +57,7 @@ notes = {
         content="This note contains a summary of our latest brainstorming session, focusing on creative solutions and new approaches.",
         link="https://example.com/brainstorming-session",
         task={
-            1: Task(id=1, description="Review session notes", completed=True, timer=False),
+            1: Task(id=1, description="Review session notes", completed=True, timer=True),
             2: Task(id=2, description="Share with team", completed=True, timer=False),
             3: Task(id=3, description="Schedule follow-up meeting", completed=False, timer=False)
         },

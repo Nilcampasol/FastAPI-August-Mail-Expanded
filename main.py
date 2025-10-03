@@ -90,11 +90,13 @@ async def update_note_time(list_note_id: int):
     list_note = next((ln for ln in list_notes if ln.id == list_note_id), None)
     if not list_note:
         raise HTTPException(status_code=404, detail="Note not found")
-    actualtime = datetime.now(pytz.timezone('Europe/Madrid')).strftime("%H:%M")
+    this_date = datetime.now(pytz.timezone('Europe/Madrid')).ctime()
+    actualtime = datetime.now(pytz.timezone('Europe/Madrid'))
     note = notes.get(list_note.id)
+    note.last_edited = this_date
     for list_note in list_notes:
         if list_note.id == list_note_id:
-            list_note.time = actualtime
+            list_note.time = actualtime.strftime("%H:%M")
             break
 
     return {"success": True, "time": list_note.time}
