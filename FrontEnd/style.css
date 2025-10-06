@@ -62,8 +62,6 @@ body {
 
     i.bi {
         font-size: 24px;
-        width: 24px;
-        height: 24px;
         display: inline-block;
         vertical-align: middle;
         color: var(--blue);
@@ -83,8 +81,6 @@ body {
 
     i.bi {
     font-size: 24px;
-    width: 24px;
-    height: 24px;
     display: inline-block;
     vertical-align: middle;
     color: var(--blue);
@@ -459,7 +455,7 @@ body {
     min-width: 0;
     flex: 0 0 220px;
     width: 460px;
-    padding-bottom: 40px;
+    margin-bottom: 40px;
     flex-shrink: 1;
 }
 
@@ -902,8 +898,6 @@ body {
 
 .toolbar.toolbar-main .toolbar-btn i.bi {
     font-size: 22px;
-    width: 22px;
-    height: 22px;
     display: inline-block;
     vertical-align: middle;
 }
@@ -998,8 +992,6 @@ body {
 .toolbar-edit .toolbar-btn i,
 .toolbar-edit .toolbar-btn svg {
     font-size: 22px;
-    width: 22px;
-    height: 22px;
 }
 
 .toolbar-edit .toolbar-btn:hover {
